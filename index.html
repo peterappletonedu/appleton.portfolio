@@ -1,0 +1,465 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Peter — Supply Chain & Operations</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg:        #0c0c0c;
+      --surface:   #111111;
+      --border:    #222222;
+      --text:      #f5f0e8;
+      --muted:     #666666;
+      --amber:     #fbbf24;
+      --green:     #22c55e;
+      --serif:     'DM Serif Display', Georgia, serif;
+      --mono:      'DM Mono', monospace;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: var(--mono);
+      font-size: 14px;
+      line-height: 1.7;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 18px 48px;
+      background: rgba(12,12,12,0.85);
+      backdrop-filter: blur(8px);
+      border-bottom: 1px solid var(--border);
+      z-index: 100;
+    }
+    .nav-logo {
+      font-family: var(--serif);
+      font-style: italic;
+      font-size: 20px;
+      color: var(--text);
+      text-decoration: none;
+    }
+    .nav-links {
+      display: flex;
+      gap: 32px;
+      list-style: none;
+    }
+    .nav-links a {
+      color: var(--muted);
+      text-decoration: none;
+      font-size: 12px;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      transition: color 0.2s;
+    }
+    .nav-links a:hover { color: var(--text); }
+
+    /* ── SECTIONS ── */
+    section {
+      max-width: 760px;
+      margin: 0 auto;
+      padding: 120px 24px 80px;
+    }
+    section:first-of-type { padding-top: 160px; }
+
+    .section-label {
+      font-size: 11px;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 16px;
+    }
+
+    /* ── HERO ── */
+    .hero-name {
+      font-family: var(--serif);
+      font-size: clamp(48px, 8vw, 80px);
+      font-style: italic;
+      line-height: 1.05;
+      margin-bottom: 20px;
+    }
+    .hero-name span { color: var(--amber); }
+
+    .hero-sub {
+      font-size: 14px;
+      color: var(--muted);
+      letter-spacing: 0.05em;
+      margin-bottom: 40px;
+      max-width: 480px;
+    }
+
+    .btn-row { display: flex; gap: 12px; flex-wrap: wrap; }
+
+    .btn {
+      display: inline-block;
+      padding: 10px 22px;
+      border-radius: 8px;
+      font-family: var(--mono);
+      font-size: 12px;
+      letter-spacing: 0.08em;
+      text-decoration: none;
+      transition: all 0.2s;
+      cursor: pointer;
+    }
+    .btn-primary {
+      background: var(--amber);
+      color: #000;
+      border: 1px solid var(--amber);
+    }
+    .btn-primary:hover { background: #f5a800; }
+    .btn-outline {
+      background: transparent;
+      color: var(--text);
+      border: 1px solid var(--border);
+    }
+    .btn-outline:hover { border-color: var(--muted); }
+
+    .divider {
+      border: none;
+      border-top: 1px solid var(--border);
+      margin: 0 auto;
+      max-width: 760px;
+    }
+
+    /* ── ABOUT ── */
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1fr 2fr;
+      gap: 48px;
+      align-items: start;
+    }
+    .about-meta p {
+      font-size: 12px;
+      color: var(--muted);
+      margin-bottom: 6px;
+    }
+    .about-meta strong { color: var(--text); display: block; font-weight: 500; }
+    .about-text { font-size: 15px; color: var(--muted); line-height: 1.8; }
+    .about-text p + p { margin-top: 16px; }
+
+    /* ── SKILLS ── */
+    .skills-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 16px;
+      margin-top: 8px;
+    }
+    .skill-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 20px;
+    }
+    .skill-card h3 {
+      font-family: var(--serif);
+      font-style: italic;
+      font-size: 17px;
+      margin-bottom: 10px;
+      color: var(--text);
+    }
+    .skill-card ul {
+      list-style: none;
+      font-size: 12px;
+      color: var(--muted);
+      line-height: 1.9;
+    }
+    .skill-card ul li::before { content: "→ "; color: var(--amber); }
+
+    /* ── EXPERIENCE ── */
+    .timeline { display: flex; flex-direction: column; gap: 32px; }
+    .timeline-item { display: grid; grid-template-columns: 140px 1fr; gap: 24px; }
+    .timeline-date { font-size: 11px; color: var(--muted); padding-top: 3px; letter-spacing: 0.05em; }
+    .timeline-body h3 { font-size: 15px; font-weight: 500; margin-bottom: 2px; }
+    .timeline-body .company { font-size: 12px; color: var(--amber); margin-bottom: 8px; }
+    .timeline-body p { font-size: 13px; color: var(--muted); line-height: 1.7; }
+
+    /* ── INTERESTS ── */
+    .interests-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+      gap: 12px;
+    }
+    .interest-chip {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 14px 18px;
+      font-size: 13px;
+      color: var(--muted);
+    }
+    .interest-chip span { display: block; font-size: 18px; margin-bottom: 6px; }
+
+    /* ── CONTACT ── */
+    .contact-box {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 40px;
+    }
+    .contact-box h2 {
+      font-family: var(--serif);
+      font-style: italic;
+      font-size: 36px;
+      margin-bottom: 8px;
+    }
+    .contact-box .contact-sub { color: var(--muted); margin-bottom: 32px; font-size: 14px; }
+    .contact-form { display: flex; flex-direction: column; gap: 14px; max-width: 480px; }
+    .contact-form input,
+    .contact-form textarea {
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 12px 16px;
+      color: var(--text);
+      font-family: var(--mono);
+      font-size: 13px;
+      outline: none;
+      transition: border-color 0.2s;
+      resize: vertical;
+    }
+    .contact-form input:focus,
+    .contact-form textarea:focus { border-color: var(--amber); }
+    .contact-form input::placeholder,
+    .contact-form textarea::placeholder { color: var(--muted); }
+    .contact-form textarea { min-height: 120px; }
+    .form-row { display: flex; gap: 14px; }
+    .form-row input { flex: 1; }
+    .contact-links { display: flex; gap: 10px; margin-top: 8px; flex-wrap: wrap; }
+
+    /* ── FOOTER ── */
+    footer {
+      text-align: center;
+      padding: 40px 24px;
+      font-size: 11px;
+      color: var(--muted);
+      letter-spacing: 0.08em;
+      border-top: 1px solid var(--border);
+    }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 640px) {
+      nav { padding: 16px 20px; }
+      .nav-links { gap: 20px; }
+      .about-grid { grid-template-columns: 1fr; gap: 28px; }
+      .timeline-item { grid-template-columns: 1fr; gap: 4px; }
+      .contact-box { padding: 28px 20px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ── NAVIGATION ── -->
+  <nav>
+    <a href="#home" class="nav-logo">Peter</a>
+    <ul class="nav-links">
+      <li><a href="#about">About</a></li>
+      <li><a href="#experience">Experience</a></li>
+      <li><a href="#interests">Interests</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+  </nav>
+
+  <!-- ── HERO ── -->
+  <section id="home">
+    <p class="section-label">BA-SCM · SAIT · Calgary</p>
+    <h1 class="hero-name">
+      Supply chain<br />
+      thinker<span>.</span>
+    </h1>
+    <p class="hero-sub">
+      BA–Supply Chain Management student building toward planning, procurement,
+      and operations roles. Cross-trained across data, logistics, and systems —
+      ready to show up and make things work.
+    </p>
+    <div class="btn-row">
+      <a href="#contact" class="btn btn-primary">Get in touch</a>
+      <a href="#experience" class="btn btn-outline">See my background</a>
+      <a href="/files/resume.pdf" class="btn btn-outline" download>Download CV</a>
+    </div>
+  </section>
+
+  <hr class="divider" />
+
+  <!-- ── ABOUT ── -->
+  <section id="about">
+    <p class="section-label">About</p>
+    <div class="about-grid">
+      <div class="about-meta">
+        <p><strong>Currently</strong>BA-SCM Diploma, Semester 2 of 4</p>
+        <p><strong>School</strong>SAIT, Calgary AB</p>
+        <p><strong>Based in</strong>Calgary, AB</p>
+        <p><strong>Open to</strong>Remote · Camp · Rotational · FIFO</p>
+        <p><strong>Target roles</strong>Planning · Procurement · Operations</p>
+      </div>
+      <div class="about-text">
+        <p>
+          I'm a supply chain and operations student with a background that spans
+          more industries than most — which means I bring pattern recognition and
+          adaptability that classroom-only experience can't replicate.
+        </p>
+        <p>
+          I think in systems. Whether it's a procurement workflow, an investment
+          thesis, or a personal productivity setup, I gravitate toward understanding
+          how the parts connect — and where the friction is.
+        </p>
+        <p>
+          Outside of school I'm an active self-directed investor, a daily reader,
+          and someone who believes the best supply chain professionals are the ones
+          who can talk to both the warehouse floor and the executive team.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <hr class="divider" />
+
+  <!-- ── SKILLS ── -->
+  <section id="skills">
+    <p class="section-label">Skills & Tools</p>
+    <div class="skills-grid">
+      <div class="skill-card">
+        <h3>Supply Chain</h3>
+        <ul>
+          <li>Demand planning</li>
+          <li>Procurement</li>
+          <li>Inventory management</li>
+          <li>EOQ / ROP calculations</li>
+          <li>SAP (learning)</li>
+        </ul>
+      </div>
+      <div class="skill-card">
+        <h3>Data & Analysis</h3>
+        <ul>
+          <li>Power BI</li>
+          <li>Tableau Public</li>
+          <li>Excel / Google Sheets</li>
+          <li>SQL (learning)</li>
+          <li>Python basics (learning)</li>
+        </ul>
+      </div>
+      <div class="skill-card">
+        <h3>Tech & Systems</h3>
+        <ul>
+          <li>Notion (advanced)</li>
+          <li>GitHub</li>
+          <li>Microsoft 365</li>
+          <li>Jira / Confluence</li>
+          <li>AWS Educate</li>
+        </ul>
+      </div>
+      <div class="skill-card">
+        <h3>Soft Skills</h3>
+        <ul>
+          <li>Systems thinking</li>
+          <li>Cross-functional comms</li>
+          <li>Outside-the-box problem solving</li>
+          <li>Self-directed learning</li>
+          <li>Adaptability</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <hr class="divider" />
+
+  <!-- ── EXPERIENCE ── -->
+  <section id="experience">
+    <p class="section-label">Experience & Education</p>
+    <div class="timeline">
+
+      <div class="timeline-item">
+        <div class="timeline-date">2025 — Present</div>
+        <div class="timeline-body">
+          <h3>BA — Supply Chain Management</h3>
+          <p class="company">SAIT · Calgary, AB</p>
+          <p>Diploma program covering procurement, operations, logistics, and supply chain analytics. Semester 2 of 4. Coursework includes SCMT255 and MKTG-260.</p>
+        </div>
+      </div>
+
+      <!-- ADD YOUR REAL WORK HISTORY BELOW — duplicate this block for each role -->
+      <div class="timeline-item">
+        <div class="timeline-date">Your dates</div>
+        <div class="timeline-body">
+          <h3>Your Job Title</h3>
+          <p class="company">Company Name · Location</p>
+          <p>Brief description of what you did and what you contributed. Focus on outcomes, not just tasks.</p>
+        </div>
+      </div>
+
+      <div class="timeline-item">
+        <div class="timeline-date">Your dates</div>
+        <div class="timeline-body">
+          <h3>Your Job Title</h3>
+          <p class="company">Company Name · Location</p>
+          <p>Brief description of what you did and what you contributed.</p>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <hr class="divider" />
+
+  <!-- ── INTERESTS ── -->
+  <section id="interests">
+    <p class="section-label">Interests & Curiosities</p>
+    <div class="interests-grid">
+      <div class="interest-chip"><span>📦</span>Supply chain design</div>
+      <div class="interest-chip"><span>📈</span>Self-directed investing</div>
+      <div class="interest-chip"><span>📚</span>Daily reading habit</div>
+      <div class="interest-chip"><span>🌐</span>Geopolitics & trade</div>
+      <div class="interest-chip"><span>⚙️</span>Process & systems</div>
+      <div class="interest-chip"><span>🛳️</span>Maritime logistics</div>
+    </div>
+  </section>
+
+  <hr class="divider" />
+
+  <!-- ── CONTACT ── -->
+  <section id="contact">
+    <div class="contact-box">
+      <h2>Let's connect.</h2>
+      <p class="contact-sub">Open to summer 2026 roles, informational chats, and interesting problems.</p>
+
+      <!-- Netlify Forms: the name="contact" and data-netlify="true" attributes
+           are all Netlify needs — no backend code required. Submissions are
+           emailed to you and stored in your Netlify dashboard. -->
+      <form class="contact-form" name="contact" method="POST" data-netlify="true" data-netlify-honeypot="bot-field">
+        <input type="hidden" name="form-name" value="contact" />
+        <input type="hidden" name="bot-field" /> <!-- spam trap -->
+        <div class="form-row">
+          <input type="text"  name="name"    placeholder="Your name"  required />
+          <input type="email" name="email"   placeholder="Your email" required />
+        </div>
+        <input  type="text"   name="subject" placeholder="Subject (e.g. Summer 2026 opportunity)" />
+        <textarea             name="message" placeholder="Your message…" required></textarea>
+        <button type="submit" class="btn btn-primary" style="align-self:flex-start">Send message →</button>
+      </form>
+
+      <div class="contact-links">
+        <a href="https://linkedin.com/in/yourhandle" class="btn btn-outline" target="_blank" rel="noopener">LinkedIn →</a>
+        <a href="https://github.com/yourhandle" class="btn btn-outline" target="_blank" rel="noopener">GitHub →</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── FOOTER ── -->
+  <footer>
+    <p>Built by Peter · Calgary, AB · <!-- Update year --> 2026</p>
+  </footer>
+
+</body>
+</html>
