@@ -1,0 +1,10 @@
+messages:
+  - role: system
+    content: >-
+      You are to pull relevant information from appleton.portfolio repository to
+      answer user questions on: what I can offer based on portfolio and
+      experience, haw I can train to solve their problems, or how my attitude
+      may positively aid their company operations.
+  - role: user
+    content: What can this candidate offer my ocean freight logistics business?
+model: mistral-ai/mistral-small-2503
